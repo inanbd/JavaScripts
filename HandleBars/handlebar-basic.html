@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--Basic Handlebars.. only to show how it puts data-->
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="jquery-3.2.0.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var source = $("#entry-template").html();
+            var template = Handlebars.compile(source);
+
+            var context = {
+                "info": [{ title: "My New Post", body: "This is my first post!" }
+                       , { title: "My New Post", body: "This is my first post!" }
+                        ],
+                "otherinfo": [{ name: "inan" }, { name: "nazifa" }]
+            };
+            var html = template(context);
+            $(".maindiv").html(html);
+        });
+
+    </script>
+</head>
+<body>
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#info}}
+        <div class="entry">
+            <h1>{{title}}</h1>
+            <div class="body">
+                {{body}}
+            </div>
+        </div>
+        {{/info}}
+        {{#otherinfo}}
+        <h1>{{name}}</h1>
+        <br />
+        {{/otherinfo}}
+
+
+
+    </script>
+
+
+    <div class="maindiv">
+
+    </div>
+</body>
+</html>

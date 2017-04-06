@@ -1,0 +1,110 @@
+ <!DOCTYPE html>
+<!--Basic If conditions in handle bars-->
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>If conditions</title>
+    <script src="jquery-3.2.0.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
+
+    <script>
+
+        Handlebars.registerHelper('ifCond', function (v1, v2, options) {
+            if (v1 === v2) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
+
+        Handlebars.registerHelper('ifCondFull', function (v1, operator, v2, options) {
+
+            switch (operator) {
+                case '==':
+                    return (v1 == v2) ? options.fn(this) : options.inverse(this);
+                case '===':
+                    return (v1 === v2) ? options.fn(this) : options.inverse(this);
+                case '!=':
+                    return (v1 != v2) ? options.fn(this) : options.inverse(this);
+                case '!==':
+                    return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+                case '<':
+                    return (v1 < v2) ? options.fn(this) : options.inverse(this);
+                case '<=':
+                    return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+                case '>':
+                    return (v1 > v2) ? options.fn(this) : options.inverse(this);
+                case '>=':
+                    return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+                case '&&':
+                    return (v1 && v2) ? options.fn(this) : options.inverse(this);
+                case '||':
+                    return (v1 || v2) ? options.fn(this) : options.inverse(this);
+                default:
+                    return options.inverse(this);
+            }
+        });
+
+
+
+        $(document).ready(function () {
+            var source = $("#entry-template").html();
+            var template = Handlebars.compile(source);
+
+            var context = {
+                v1: "2", v2: "2",
+                isActive: false,
+                isInactive: true,
+                value: "apple",
+                name1: "inan",
+                name2:"inan2",
+            };
+            var html = template(context);
+            $(".maindiv").html(html);
+        });
+
+    </script>
+</head>
+<body>
+    <script id="entry-template" type="text/x-handlebars-template">
+
+        {{#if isActive}}
+        is active
+        {{else if isInactive}}
+        is inactive
+        {{else}}
+        none
+        {{/if}}
+        <br />
+        <br />
+        {{#ifCond v1 v2}}
+        {{v1}} is equal to {{v2}}
+        {{else}}
+        {{v1}} is not equal to {{v2}}
+        {{/ifCond}}
+        <br />
+        <br />
+        {{#ifCond value 'banana'}}
+        banana
+        {{else}}
+        {{#ifCond value 'apple'}}
+        apple
+        {{else}}
+        don't know
+        {{/ifCond}}
+        {{/ifCond}}
+        <br />
+        <br />
+        {{#ifCondFull name1 '==' name2}}
+        Names Are Same
+        {{else}}
+        Names Are Not Same
+        {{/ifCondFull}}
+
+    </script>
+
+
+    <div class="maindiv" style="text-align:center">
+
+    </div>
+</body>
+</html>

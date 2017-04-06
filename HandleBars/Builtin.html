@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<!--Taken From http://handlebarsjs.com/builtin_helpers.html -->
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Builtin</title>
+    <script src="jquery-3.2.0.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var source = $("#entry-template").html();
+            var template = Handlebars.compile(source);
+
+            var context = {
+                author: "inan",
+                firstName: "kaizar",
+                lastName: "Tariq",
+                license:"",
+                people: [
+                   "kaizar tariq inan",
+                   "nazifa tasnim",
+                   "md abul kashem"
+                ],
+
+            };
+            var html = template(context);
+            $(".maindiv").html(html);
+        });
+    </script>
+</head>
+<body>
+    <script id="entry-template" type="text/x-handlebars-template">
+        <h1>unless</h1>
+        {{#if author}}
+        <h1>{{firstName}} {{lastName}}</h1>
+        {{else}}
+        <h1>Unknown Author</h1>
+        {{/if}}
+        <br />
+        <h1>unless</h1>
+        {{#unless license}}
+        <h3 class="warning">WARNING: This entry does not have a license!</h3>
+        {{/unless}}
+        <br />
+        <h1>each</h1>
+        <ul>
+            {{#each people}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{#each paragraphs}}
+        <p>{{this}}</p>
+        {{else}}
+        <p class="empty">No content</p>
+        {{/each}}
+
+    </script>
+    <div class="maindiv" style="text-align:center">
+
+    </div>
+</body>
+</html>
